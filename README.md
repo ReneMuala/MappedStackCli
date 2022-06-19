@@ -3,6 +3,49 @@ A command line application that implements the MappedStack data structure to pro
 
 _Um aplicativo de consola que imlementa a estuctura de dados MappedStack para providenciar um sistema de base de dados interactivo_
 
+# Some basic commands
+
+```
+help;
+```
+> Shows a list of suported commands.
+
+```
+insert text Lorem;
+```
+> Adds Lorem to <b>text</b> stack.
+
+```
+count text;
+```
+> Counts the elements in <b>text</b> stack.
+```
+exit;
+```
+> Closes de app.
+
+# Alguns comandos basicos
+
+```
+ajuda;
+```
+> Mostra uma lista dos comandos suportados.
+
+```
+inserir texto Lorem;
+```
+> Adiciona Lorem a pilha <b>text</b>.
+
+```
+contar texto;
+```
+> Conta os elementos na pilha <b>texto</b>.
+
+```
+sair;
+```
+> Fecha o aplicativo.
+
 # Try it out / Experimente
 > install cmake, git and and a c++ then run the following command on your terminal.
 

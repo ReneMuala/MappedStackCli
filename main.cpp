@@ -46,16 +46,7 @@ void get_what(std::string & what, std::string & command, ssize_t separators[]){
 }
 
 int main(){
-    for (int i= 0 ; i < 500 ; i ++) {
-        std::cout << "i x " << i  << ";"<< std::endl;
-    }
-    MappedStack<std::string_view, std::string> ms;
-    
-    ms.insert("hello", "world");
-    
-    std::cout << ms.at("hello") << std::endl; // world
-    
-    
+    MappedStack<std::string_view, std::string> ms;    
     const std::regex insert_cmd =   std::regex("\\s*(i|(ins)|(insert)|(inserir))\\s+\\w+\\s+.*", std::regex::icase);
     const std::regex rinsert_cmd = std::regex("\\s*r(i|(ins)|(insert)|(inserir))\\s+\\w+\\s+.*", std::regex::icase);
     const std::regex count_cmd = std::regex("\\s*(c|(cnt)|(count)|(contar))\\s+\\w+\\s*", std::regex::icase);
@@ -124,19 +115,19 @@ int main(){
             if(!silent_mode){
                 std::cout << "© 2022 Rene Muala (renemuala@icloud.com) \nMappedStack CLI 1.0 , libms " << MAPPED_STACK_VERSION << '\n'
                 << "Note: <where> means stack key / <onde> significa chave de pilha.\n"
-                << "(i|(ins)|(insert)|(inserir)) <where/onde> <data/dado>" << "\t inserts data to the end of <where> / insere dados ao fim <onde>.\n"
-                << "r(i|(ins)|(insert)|(inserir)) <where/onde> <data/dado>" << "\t inserts data to the top of <where> / insere dados ao topo <onde>.\n"
-                << "(c|(cnt)|(count)|(contar)) <where/onde>" << "\t counts <where> / conta onde.\n"
-                << "(f|a|(at)|(find)|(encontrar)) <where/onde>" << "\t returns the element on the top of <where> / retorna o elemento no topo de <onde>.\n"
-                << "r(f|a|(at)|(find)|(encontrar)) <where/onde>" << "\t returns the element on the bottom of <where> / retorna o elemento no fim de <onde>.\n"
-                << "(r|(rm)|(rem)|(remove)|(remover)) <where/onde>" << "\t removes the element on the top of <where> / remove o elemento no top de <onde>.\n"
-                << "r(r|(rm)|(rem)|(remove)|(remover)) <where/onde>" << "\t removes the element on the bottom of <where> / remove o elemento no fim de <onde>.\n"
-                << "(s|(shh)|(silent)|(silent_mode))" << "\t enables silent mode / activa o modo silencioso.\n"
-                << "r(s|(shh)|(silent)|(silent_mode))" << "\t disables silent mode / desactiva o modo silencioso.\n"
-                << "(l|(list)|(listar))" << "\t lists all <where> / mostra todos os <onde>.\n"
-                << "(h|(help)|(ajuda))" << "\t ...\n"
-                << "(q|(exit)|(quit)|(sair))" << "\t ...\n"
-                << "(v|(version)|(versao))" << "\t ...\n";
+                << "(i|(ins)|(insert)|(inserir)) <where/onde> <data/dado>;" << "\t inserts data to the end of <where> / insere dados ao fim <onde>.\n"
+                << "r(i|(ins)|(insert)|(inserir)) <where/onde> <data/dado>;" << "\t inserts data to the top of <where> / insere dados ao topo <onde>.\n"
+                << "(c|(cnt)|(count)|(contar)) <where/onde>;" << "\t counts <where> / conta onde.\n"
+                << "(f|a|(at)|(find)|(encontrar)) <where/onde>;" << "\t returns the element on the top of <where> / retorna o elemento no topo de <onde>.\n"
+                << "r(f|a|(at)|(find)|(encontrar)) <where/onde>;" << "\t returns the element on the bottom of <where> / retorna o elemento no fim de <onde>.\n"
+                << "(r|(rm)|(rem)|(remove)|(remover)) <where/onde>;" << "\t removes the element on the top of <where> / remove o elemento no top de <onde>.\n"
+                << "r(r|(rm)|(rem)|(remove)|(remover)) <where/onde>;" << "\t removes the element on the bottom of <where> / remove o elemento no fim de <onde>.\n"
+                << "(s|(shh)|(silent)|(silent_mode));" << "\t enables silent mode / activa o modo silencioso.\n"
+                << "r(s|(shh)|(silent)|(silent_mode));" << "\t disables silent mode / desactiva o modo silencioso.\n"
+                << "(l|(list)|(listar));" << "\t lists all <where> / mostra todos os <onde>.\n"
+                << "(h|(help)|(ajuda));" << "\t ...\n"
+                << "(q|(exit)|(quit)|(sair));" << "\t ...\n"
+                << "(v|(version)|(versao));" << "\t ...\n";
             }
         } else {
             if(!silent_mode)
