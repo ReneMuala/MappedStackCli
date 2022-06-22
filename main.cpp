@@ -205,7 +205,7 @@ int main(){
                         std::cout << '\n';
                     }
                 }
-            } catch (std::__1::regex_error err){
+            } catch (std::regex_error err){
                 std::cerr << "syntax error in regex \"" <<  what << "\" " << "(" << line << "," << column << ").\n"
                 << err.what() << '\n';
             }
