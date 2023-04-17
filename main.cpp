@@ -70,15 +70,15 @@ int main(){
     const std::regex rat_cmd = std::regex("\\s*r(f|a|(at)|(find)|(encontrar))\\s+(\\w|\\.)+\\s*", std::regex::icase);
     const std::regex remove_cmd =   std::regex("\\s*(r|(rm)|(rem)|(remove)|(remover))\\s+(\\w|\\.)+\\s*", std::regex::icase);
     const std::regex rremove_cmd = std::regex("\\s*r(r|(rm)|(rem)|(remove)|(remover))\\s+(\\w|\\.)+\\s*", std::regex::icase);
-    const std::regex  silent_cmd = std::regex("\\s*(s|(shh)|(silent)|(silent_mode))\\s*", std::regex::icase);
+    const std::regex silent_cmd = std::regex("\\s*(s|shh|(silent)|(silent_mode))\\s*", std::regex::icase);
     const std::regex rsilent_cmd = std::regex("\\s*r(s|(shh)|(silent)|(silent_mode))\\s*", std::regex::icase);
     const std::regex exit_cmd = std::regex("\\s*(q|(exit)|(quit)|(sair))\\s*", std::regex::icase);
     const std::regex list_cmd = std::regex("\\s*(l|(list)|(listar))\\s*", std::regex::icase);
-    const std::regex      select_cmd = std::regex("\\s*(s|(select)|(selecionar))\\s*(\\w|\\.)+\\s*", std::regex::icase);
-    const std::regex select_offset_cmd = std::regex("\\s*--(s|(select)|(selecionar))-((compensar)|(offset)|(o))\\s+\\d+\\s*", std::regex::icase);
-    const std::regex select_limit_cmd = std::regex("\\s*--(s|(select)|(selecionar))-((limite)|(limit)|(l))\\s+\\d+\\s*", std::regex::icase);
-    const std::regex select_default_cmd = std::regex("\\s*--(s|(select)|(selecionar))-((default)|(padrao)|(d))\\s*", std::regex::icase);
-    const std::regex select_like_cmd = std::regex("\\s*(s|(select)|(selecionar))\\s+\\w+\\s+((regex)|(like)|(como))\\s+.*", std::regex::icase);
+    const std::regex select_cmd = std::regex("\\s*(se|(select)|(selecionar))\\s*(\\w|\\.)+\\s*", std::regex::icase);
+    const std::regex select_offset_cmd = std::regex("\\s*--(se|(select)|(selecionar))-((compensar)|(offset)|(o))\\s+\\d+\\s*", std::regex::icase);
+    const std::regex select_limit_cmd = std::regex("\\s*--(se|(select)|(selecionar))-((limite)|(limit)|(l))\\s+\\d+\\s*", std::regex::icase);
+    const std::regex select_default_cmd = std::regex("\\s*--(se|(select)|(selecionar))-((default)|(padrao)|(d))\\s*", std::regex::icase);
+    const std::regex select_like_cmd = std::regex("\\s*(se|(select)|(selecionar))\\s+\\w+\\s+((regex)|(like)|(como))\\s+.*", std::regex::icase);
     const std::regex version_cmd = std::regex("\\s*(v|(version)|(versao))\\s*", std::regex::icase);
     const std::regex help_cmd = std::regex("\\s*(h|(help)|(ajuda))\\s*", std::regex::icase);
     const std::regex push_cmd = std::regex("\\s*(push)\\s*.*", std::regex::icase);
@@ -94,6 +94,7 @@ int main(){
     // i a 1; i a 2; i a 3; i a 4; i a 5;
     while (true) {
         command = get_command("ms-cli");
+
         if(std::regex_match(command, push_cmd)){
             ignore_arg(command, separators, true);
             get_last_arg(what, command, separators);
@@ -219,29 +220,51 @@ int main(){
         } else if(std::regex_match(command, help_cmd)){
             if(!silent_mode){
                 std::cout << "© 2022 Rene Muala (renemuala@icloud.com) \nMappedStack CLI 1.1 , libms " << MAPPED_STACK_VERSION << '\n'
-                << "Note: <where> means stack key / <onde> significa chave de pilha.\n"
-                << "(i|(ins)|(insert)|(inserir)) <where/onde> <data/dado>" << "\t inserts data to the end of <where> / insere dados ao fim <onde>.\n"
-                << "r(i|(ins)|(insert)|(inserir)) <where/onde> <data/dado>" << "\t inserts data to the top of <where> / insere dados ao topo <onde>.\n"
-                << "(c|(cnt)|(count)|(contar)) <where/onde>" << "\t counts <where> / conta onde.\n"
-                << "(f|a|(at)|(find)|(encontrar)) <where/onde>" << "\t returns the element on the top of <where> / retorna o elemento no topo de <onde>.\n"
-                << "r(f|a|(at)|(find)|(encontrar)) <where/onde>" << "\t returns the element on the bottom of <where> / retorna o elemento no fim de <onde>.\n"
-                << "(r|(rm)|(rem)|(remove)|(remover)) <where/onde>" << "\t removes the element on the top of <where> / remove o elemento no top de <onde>.\n"
-                << "r(r|(rm)|(rem)|(remove)|(remover)) <where/onde>" << "\t removes the element on the bottom of <where> / remove o elemento no fim de <onde>.\n"
-                << "(s|(shh)|(silent)|(silent_mode))" << "\t enables silent mode / activa o modo silencioso.\n"
-                << "r(s|(shh)|(silent)|(silent_mode))" << "\t disables silent mode / desactiva o modo silencioso.\n"
-                << "(l|(list)|(listar))" << "\t lists all <where> / mostra todos os <onde>.\n"
-                << "(s|(select)|(selecionar)) <where/onde>" << "\t displays all elements in <where> / apresenta todos elemetos de <onde>.\n"
-                << "(s|(select)|(selecionar)) <where> ((regex)|(like)|(como)) <regex>" << "\t displays all elements in <where> thax match <regex> / apresenta todos elemetos de <onde> que respeitam a <regex>.\n"
-                << "--(s|(select)|(selecionar))-((compensar)|(offset)|(o)) <size/tamanho>" << "\t sets <size> as the offset for all select routines / configura <tamanho> como a comprensacao para todas as rotinas select.\n"
-                << "--(s|(select)|(selecionar))-((limite)|(limit)|(l)) <size/tamanho>" << "\t sets <size> as the limit for all select routines / configura <tamanho> como o limite para todas as rotinas select.\n"
-                << "--(s|(select)|(selecionar))-((default)|(padrao)|(d))" << "\t resets the configurations for all select routines / reseta as configuracoes para todas as rotinas select.\n"
-                << "(h|(help)|(ajuda))" << "\t ...\n"
-                << "(push) <what>" << "\t inserts data to the top of the default (.) stack / insere dados ao topo da pilha principal (.).\n"
-                << "(rpush) <what>" << "\t inserts data to the end of the default (.) stack / insere dados ao fim da pilha principal (.).\n"
-                << "(pop)" << "\t returns and removes data from the top of the default (.) stack / retorna e remove dados do topo da pilha principal (.).\n"
-                << "(rpop)" << "\t returns and removes data from the top of the default (.) stack / retorna e remove dados do topo da pilha principal (.).\n"
-                << "(q|(exit)|(quit)|(sair))" << "\t ...\n"
-                << "(v|(version)|(versao))" << "\t ...\n";
+                          << "Note: <where> means stack key / <onde> significa chave de pilha.\n"
+                          << "(i|(ins)|(insert)|(inserir)) <where/onde> <data/dado>"
+                          << "\t inserts data to the end of <where> / insere dados ao fim <onde>.\n"
+                          << "r(i|(ins)|(insert)|(inserir)) <where/onde> <data/dado>"
+                          << "\t inserts data to the top of <where> / insere dados ao topo <onde>.\n"
+                          << "(c|(cnt)|(count)|(contar)) <where/onde>"
+                          << "\t counts <where> / conta onde.\n"
+                          << "(f|a|(at)|(find)|(encontrar)) <where/onde>"
+                          << "\t returns the element on the top of <where> / retorna o elemento no topo de <onde>.\n"
+                          << "r(f|a|(at)|(find)|(encontrar)) <where/onde>"
+                          << "\t returns the element on the bottom of <where> / retorna o elemento no fim de <onde>.\n"
+                          << "(r|(rm)|(rem)|(remove)|(remover)) <where/onde>"
+                          << "\t removes the element on the top of <where> / remove o elemento no top de <onde>.\n"
+                          << "r(r|(rm)|(rem)|(remove)|(remover)) <where/onde>"
+                          << "\t removes the element on the bottom of <where> / remove o elemento no fim de <onde>.\n"
+                          << "(s|(shh)|(silent)|(silent_mode))"
+                          << "\t enables silent mode / activa o modo silencioso.\n"
+                          << "r(s|(shh)|(silent)|(silent_mode))"
+                          << "\t disables silent mode / desactiva o modo silencioso.\n"
+                          << "(l|(list)|(listar))"
+                          << "\t lists all <where> / mostra todos os <onde>.\n"
+                          << "(se|(select)|(selecionar)) <where/onde>"
+                          << "\t displays all elements in <where> / apresenta todos elemetos de <onde>.\n"
+                          << "(se|(select)|(selecionar)) <where> ((regex)|(like)|(como)) <regex>"
+                          << "\t displays all elements in <where> thax match <regex> / apresenta todos elemetos de <onde> que respeitam a <regex>.\n"
+                          << "--(se|(select)|(selecionar))-((compensar)|(offset)|(o)) <size/tamanho>"
+                          << "\t sets <size> as the offset for all select routines / configura <tamanho> como a comprensacao para todas as rotinas select.\n"
+                          << "--(se|(select)|(selecionar))-((limite)|(limit)|(l)) <size/tamanho>"
+                          << "\t sets <size> as the limit for all select routines / configura <tamanho> como o limite para todas as rotinas select.\n"
+                          << "--(se|(select)|(selecionar))-((default)|(padrao)|(d))"
+                          << "\t resets the configurations for all select routines / reseta as configuracoes para todas as rotinas select.\n"
+                          << "(h|(help)|(ajuda))"
+                          << "\t ...\n"
+                          << "(push) <what>"
+                          << "\t inserts data to the top of the default (.) stack / insere dados ao topo da pilha principal (.).\n"
+                          << "(rpush) <what>"
+                          << "\t inserts data to the end of the default (.) stack / insere dados ao fim da pilha principal (.).\n"
+                          << "(pop)"
+                          << "\t returns and removes data from the top of the default (.) stack / retorna e remove dados do topo da pilha principal (.).\n"
+                          << "(rpop)"
+                          << "\t returns and removes data from the top of the default (.) stack / retorna e remove dados do topo da pilha principal (.).\n"
+                          << "(q|(exit)|(quit)|(sair))"
+                          << "\t ...\n"
+                          << "(v|(version)|(versao))"
+                          << "\t ...\n";
             }
         } else {
             if(!silent_mode)
